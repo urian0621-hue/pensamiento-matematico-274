@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aprende Matemáticas | Pensamiento Matemático</title>
+
+<style>
+:root {
+    --fondo: #0b1020;
+    --panel: #151d32;
+    --panel2: #1d2942;
+    --texto: #f3f5ff;
+    --suave: #aab5d0;
+    --azul: #7c83ff;
+    --verde: #55dfaa;
+    --borde: #303b58;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    padding: 22px 7%;
+    border-bottom: 1px solid var(--borde);
+    background: #0e1528;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: var(--azul);
+}
+
+main {
+    width: min(900px, 90%);
+    margin: 40px auto;
+}
+
+a {
+    color: var(--azul);
+    text-decoration: none;
+}
+
+.volver {
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
+.etiqueta {
+    color: var(--verde);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+h1 {
+    font-size: clamp(30px, 5vw, 46px);
+    line-height: 1.2;
+    margin: 10px 0;
+}
+
+h2 {
+    font-size: 25px;
+    margin-top: 0;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+p {
+    color: var(--suave);
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 25px;
+    margin: 22px 0;
+}
+
+.temas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.tema {
+    background: var(--panel);
+    color: var(--texto);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tema:hover {
+    border-color: var(--azul);
+    transform: translateY(-2px);
+}
+
+.tema .icono {
+    display: block;
+    color: var(--azul);
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.tema strong {
+    display: block;
+    font-size: 17px;
+}
+
+.tema small {
+    display: block;
+    color: var(--suave);
+    margin-top: 7px;
+}
+
+button {
+    font: inherit;
+}
+
+.niveles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.boton {
+    background: var(--panel2);
+    color: var(--texto);
+    border: 1px solid var(--borde);
+    border-radius: 9px;
+    padding: 11px 16px;
+    cursor: pointer;
+}
+
+.boton:hover {
+    border-color: var(--azul);
+}
+
+.boton.activo {
+    background: var(--azul);
+    color: white;
+    border-color: var(--azul);
+}
+
+.boton:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.progreso {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--suave);
+    font-size: 14px;
+}
+
+.barra {
+    height: 8px;
+    background: var(--panel2);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 12px;
+}
+
+#barra-progreso {
+    width: 0;
+    height: 100%;
+    background: var(--verde);
+    transition: width 0.3s;
+}
+
+.ejemplo {
+    background: #101a30;
+    border-left: 4px solid var(--azul);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.pregunta {
+    font-size: 21px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.respuestas {
+    display: grid;
+    gap: 10px;
+}
+
+.respuesta {
+    background: var(--panel2);
+    color: var(--texto);
+    text-align: left;
+    padding: 14px;
+    border: 1px solid var(--borde);
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.respuesta:hover:not(:disabled) {
+    border-color: var(--azul);
+}
+
+.respuesta:disabled {
+    cursor: default;
+}
+
+.respuesta.correcta {
+    border-color: var(--verde);
+    background: #12392f;
+}
+
+.respuesta.incorrecta {
+    border-color: #ff7777;
+    background: #3a202b;
+}
+
+#mensaje {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.oculto {
+    display: none !important;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: var(--suave);
+    border-top: 1px solid var(--borde);
+}
+
+@media (max-width: 500px) {
+    main {
+        margin-top: 25px;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Pensamiento <span>Matemático</span></div>
+</header>
+
+<main>
+    <a class="volver" href="index.html#otros">← Volver a Otros</a>
+
+    <div class="etiqueta">APRENDE A TU RITMO</div>
+    <h1 id="titulo-principal">Otros temas matemáticos</h1>
+    <p id="subtitulo">Elige un tema, aprende y demuestra lo que sabes.</p>
+
+    <section id="menu-temas" class="temas">
+        <button class="tema" data-tema="geometria">
+            <span class="icono">△</span>
+            <strong>Geometría</strong>
+            <small>Triángulos, ángulos y figuras.</small>
+        </button>
+
+        <button class="tema" data-tema="areas">
+            <span class="icono">▱</span>
+            <strong>Áreas y perímetros</strong>
+            <small>Calcula superficies y contornos.</small>
+        </button>
+
+        <button class="tema" data-tema="potencias">
+            <span class="icono">x²</span>
+            <strong>Potencias y exponentes</strong>
+            <small>Aprende las reglas de las potencias.</small>
+        </button>
+
+        <button class="tema" data-tema="fracciones">
+            <span class="icono">½</span>
+            <strong>Fracciones</strong>
+            <small>Opera con fracciones.</small>
+        </button>
+
+        <button class="tema" data-tema="pitagoras">
+            <span class="icono">√</span>
+            <strong>Teorema de Pitágoras</strong>
+            <small>Encuentra lados de triángulos.</small>
+        </button>
+
+        <button class="tema" data-tema="porcentajes">
+            <span class="icono">%</span>
+            <strong>Porcentajes y regla de tres</strong>
+            <small>Resuelve proporciones.</small>
+        </button>
+    </section>
+
+    <section id="zona-leccion" class="oculto">
+        <div class="panel">
+            <button class="boton" id="volver-menu">← Todos los temas</button>
+            <div class="etiqueta" style="margin-top:22px">TU LECCIÓN</div>
+            <h2 id="titulo-tema"></h2>
+            <p id="explicacion"></p>
+            <div class="ejemplo" id="ejemplo"></div>
+        </div>
+
+        <div class="panel">
+            <div class="progreso">
+                <span id="nivel-texto">Nivel 1: Fácil</span>
+                <span id="puntos">Puntos: 0</span>
+            </div>
+
+            <div class="niveles">
+                <button class="boton activo" data-nivel="0">Nivel 1 · Fácil</button>
+                <button class="boton" data-nivel="1">Nivel 2 · Medio</button>
+                <button class="boton" data-nivel="2">Nivel 3 · Difícil</button>
+            </div>
+
+            <div class="barra">
+                <div id="barra-progreso"></div>
+            </div>
+
+            <p id="contador"></p>
+            <div class="pregunta" id="pregunta"></div>
+            <div class="respuestas" id="respuestas"></div>
+            <div id="mensaje" aria-live="polite"></div>
+
+            <div class="acciones">
+                <button class="boton oculto" id="siguiente">Siguiente pregunta →</button>
+                <button class="boton oculto" id="reintentar">Repetir nivel ↻</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    Pensamiento Matemático · Aprende, practica y mejora.
+</footer>
+
+<script>
+const temas = {
+    geometria: {
+        titulo: "Geometría",
+        explicacion: "La geometría estudia las figuras, sus lados, ángulos y propiedades. Un triángulo tiene tres lados y la suma de sus ángulos interiores es 180°.",
+        ejemplo: "Ejemplo: un triángulo con ángulos de 60°, 60° y 60° es equilátero en sus ángulos.",
+        niveles: [
+            [
+                ["¿Cuántos lados tiene un triángulo?", ["2", "3", "4"], 1, "Un triángulo tiene tres lados."],
+                ["¿Cuántos grados suman los ángulos interiores de un triángulo?", ["90°", "180°", "360°"], 1, "La suma siempre es 180°."],
+                ["¿Cuántos lados tiene un cuadrado?", ["3", "4", "5"], 1, "Un cuadrado tiene cuatro lados iguales."]
+            ],
+            [
+                ["Un ángulo de 90° es...", ["Agudo", "Recto", "Obtuso"], 1, "El ángulo recto mide exactamente 90°."],
+                ["¿Cómo se llama un triángulo con tres lados iguales?", ["Escaleno", "Isósceles", "Equilátero"], 2, "El equilátero tiene tres lados iguales."],
+                ["Un ángulo de 120° es...", ["Agudo", "Recto", "Obtuso"], 2, "Los ángulos mayores de 90° y menores de 180° son obtusos."]
+            ],
+            [
+                ["Dos ángulos de un triángulo miden 45° y 65°. ¿Cuánto mide el tercero?", ["60°", "70°", "80°"], 1, "180 - 45 - 65 = 70°."],
+                ["¿Cuántas diagonales tiene un cuadrado?", ["1", "2", "4"], 1, "Tiene dos diagonales."],
+                ["Un polígono de seis lados se llama...", ["Pentágono", "Hexágono", "Octágono"], 1, "Un hexágono tiene seis lados."]
+            ]
+        ]
+    },
+
+    areas: {
+        titulo: "Áreas y perímetros",
+        explicacion: "El área mide la superficie de una figura. El perímetro es la suma de las longitudes de todos sus lados.",
+        ejemplo: "Rectángulo: área = base × altura. Perímetro = 2 × (base + altura).",
+        niveles: [
+            [
+                ["Área de un rectángulo de base 5 y altura 3.", ["8 u²", "15 u²", "16 u²"], 1, "Área = 5 × 3 = 15 u²."],
+                ["Perímetro de un cuadrado de lado 4.", ["8", "12", "16"], 2, "Perímetro = 4 × 4 = 16."],
+                ["Área de un cuadrado de lado 6.", ["12 u²", "24 u²", "36 u²"], 2, "Área = 6 × 6 = 36 u²."]
+            ],
+            [
+                ["Área de un triángulo con base 10 y altura 4.", ["20 u²", "40 u²", "14 u²"], 0, "Área = (10 × 4) ÷ 2 = 20 u²."],
+                ["Perímetro de un rectángulo de lados 8 y 3.", ["11", "22", "24"], 1, "Perímetro = 2 × (8 + 3) = 22."],
+                ["Área de un rectángulo de 12 por 7.", ["19 u²", "38 u²", "84 u²"], 2, "Área = 12 × 7 = 84 u²."]
+            ],
+            [
+                ["Un cuadrado tiene perímetro 40. ¿Cuánto mide cada lado?", ["8", "10", "20"], 1, "Cada lado = 40 ÷ 4 = 10."],
+                ["Un triángulo tiene base 14 y altura 9. ¿Cuál es su área?", ["63 u²", "126 u²", "23 u²"], 0, "Área = (14 × 9) ÷ 2 = 63 u²."],
+                ["Un rectángulo tiene área 72 y base 9. ¿Cuál es su altura?", ["6", "8", "9"], 1, "Altura = 72 ÷ 9 = 8."]
+            ]
+        ]
+    },
+
+    potencias: {
+        titulo: "Potencias y exponentes",
+        explicacion: "Una potencia representa una multiplicación repetida. En 2³, el 2 es la base y el 3 es el exponente.",
+        ejemplo: "Ejemplo: 2³ = 2 × 2 × 2 = 8.",
+        niveles: [
+            [
+                ["¿Cuánto es 2³?", ["6", "8", "9"], 1, "2³ = 2 × 2 × 2 = 8."],
+                ["¿Cuánto es 5²?", ["10", "20", "25"], 2, "5² = 5 × 5 = 25."],
+                ["¿Cuánto es 10¹?", ["1", "10", "100"], 1, "Todo número elevado a 1 es el mismo número."]
+            ],
+            [
+                ["¿Cuánto es 2⁴?", ["8", "16", "32"], 1, "2⁴ = 2 × 2 × 2 × 2 = 16."],
+                ["¿Cuánto es 3² × 3²?", ["3⁴ = 81", "3⁴ = 27", "6⁴ = 1296"], 0, "Al multiplicar potencias de igual base, sumamos exponentes: 3⁴ = 81."],
+                ["¿Cuánto es 7⁰?", ["0", "1", "7"], 1, "Todo número distinto de cero elevado a cero vale 1."]
+            ],
+            [
+                ["¿Cuánto es 2³ × 2²?", ["2⁵ = 32", "2⁶ = 64", "4⁵ = 1024"], 0, "Sumamos exponentes: 2⁵ = 32."],
+                ["¿Cuánto es (3²)³?", ["3⁵ = 243", "3⁶ = 729", "3⁸ = 6561"], 1, "Potencia de una potencia: multiplicamos exponentes. 3⁶ = 729."],
+                ["¿Cuánto es 5⁴ ÷ 5²?", ["5² = 25", "5⁶ = 15625", "1"], 0, "Al dividir potencias de igual base, restamos exponentes: 5² = 25."]
+            ]
+        ]
+    },
+
+    fracciones: {
+        titulo: "Fracciones",
+        explicacion: "Una fracción representa partes de un todo. El numerador va arriba y el denominador abajo. Para sumar fracciones con el mismo denominador, sumamos los numeradores.",
+        ejemplo: "Ejemplo: 2/5 + 1/5 = 3/5.",
+        niveles: [
+            [
+                ["¿Cuánto es 1/4 + 2/4?", ["3/8", "3/4", "2/4"], 1, "Con el mismo denominador: (1 + 2)/4 = 3/4."],
+                ["¿Cuánto es 3/5 - 1/5?", ["2/5", "2/10", "4/5"], 0, "Restamos numeradores: (3 - 1)/5 = 2/5."],
+                ["¿Cuál fracción equivale a la mitad?", ["1/3", "2/4", "3/4"], 1, "2/4 se simplifica a 1/2."]
+            ],
+            [
+                ["¿Cuánto es 1/2 + 1/4?", ["2/6", "3/4", "1/6"], 1, "1/2 = 2/4; entonces 2/4 + 1/4 = 3/4."],
+                ["¿Cuánto es 2/3 × 3/4?", ["1/2", "5/7", "6/7"], 0, "Multiplicamos: 6/12 = 1/2."],
+                ["¿Cuánto es 1/2 ÷ 1/4?", ["1/8", "2", "4"], 1, "Dividir entre una fracción equivale a multiplicar por su inversa: 1/2 × 4 = 2."]
+            ],
+            [
+                ["¿Cuánto es 2/3 + 1/6?", ["3/9", "5/6", "1/2"], 1, "2/3 = 4/6; 4/6 + 1/6 = 5/6."],
+                ["Simplifica 12/18.", ["2/3", "3/4", "6/9"], 0, "Dividimos numerador y denominador entre 6: 2/3."],
+                ["¿Cuánto es 3/4 - 1/6?", ["2/2", "7/12", "1/2"], 1, "Con denominador común 12: 9/12 - 2/12 = 7/12."]
+            ]
+        ]
+    },
+
+    pitagoras: {
+        titulo: "Teorema de Pitágoras",
+        explicacion: "En un triángulo rectángulo, el cuadrado de la hipotenusa es igual a la suma de los cuadrados de los otros dos lados.",
+        ejemplo: "Fórmula: a² + b² = c². La hipotenusa c es el lado más largo.",
+        niveles: [
+            [
+                ["Los catetos miden 3 y 4. ¿Cuánto mide la hipotenusa?", ["5", "6", "7"], 0, "c = √(3² + 4²) = √25 = 5."],
+                ["¿Cuál es la fórmula de Pitágoras?", ["a + b = c", "a² + b² = c²", "a² - b² = c"], 1, "La fórmula es a² + b² = c²."],
+                ["Los catetos miden 6 y 8. ¿Cuál es la hipotenusa?", ["10", "12", "14"], 0, "c = √(36 + 64) = √100 = 10."]
+            ],
+            [
+                ["La hipotenusa mide 13 y un cateto 5. ¿Cuánto mide el otro?", ["8", "12", "18"], 1, "b = √(13² - 5²) = √144 = 12."],
+                ["Catetos de 9 y 12. ¿Hipotenusa?", ["15", "18", "21"], 0, "c = √(81 + 144) = √225 = 15."],
+                ["La hipotenusa mide 10 y un cateto 6. ¿Cuánto mide el otro?", ["4", "8", "16"], 1, "b = √(100 - 36) = √64 = 8."]
+            ],
+            [
+                ["Catetos de 7 y 24. ¿Cuánto mide la hipotenusa?", ["25", "26", "31"], 0, "c = √(49 + 576) = √625 = 25."],
+                ["Hipotenusa 17 y cateto 8. ¿Cuánto mide el otro cateto?", ["9", "15", "25"], 1, "b = √(289 - 64) = √225 = 15."],
+                ["Una escalera de 10 m llega a 8 m de altura. ¿A qué distancia está su base de la pared?", ["2 m", "6 m", "8 m"], 1, "Distancia = √(10² - 8²) = √36 = 6 m."]
+            ]
+        ]
+    },
+
+    porcentajes: {
+        titulo: "Porcentajes y regla de tres",
+        explicacion: "Un porcentaje representa una cantidad de cada 100. La regla de tres permite encontrar un valor desconocido cuando hay una proporción directa.",
+        ejemplo: "Ejemplo: 20% de 150 = 0.20 × 150 = 30.",
+        niveles: [
+            [
+                ["¿Cuánto es el 10% de 200?", ["10", "20", "40"], 1, "10% = 0.10; 0.10 × 200 = 20."],
+                ["¿Cuánto es el 50% de 80?", ["20", "40", "50"], 1, "50% es la mitad: 80 ÷ 2 = 40."],
+                ["Si 2 cuadernos cuestan $30, ¿cuánto cuestan 4 al mismo precio?", ["$45", "$60", "$90"], 1, "4 es el doble de 2, así que el precio se duplica: $60."]
+            ],
+            [
+                ["¿Cuánto es el 15% de 200?", ["15", "30", "45"], 1, "0.15 × 200 = 30."],
+                ["Un artículo cuesta $100 y tiene 20% de descuento. ¿Precio final?", ["$80", "$90", "$120"], 0, "Descuento: $20. Precio final: $100 - $20 = $80."],
+                ["Si 3 kg cuestan $60, ¿cuánto cuestan 5 kg?", ["$80", "$100", "$120"], 1, "Cada kilo cuesta $20; 5 × $20 = $100."]
+            ],
+            [
+                ["Un precio de $400 aumenta 25%. ¿Cuál es el nuevo precio?", ["$425", "$500", "$525"], 1, "25% de 400 = 100. Nuevo precio: $500."],
+                ["Si 8 trabajadores terminan un trabajo en 6 días, ¿cuántos días tardarían 4 al mismo ritmo?", ["3 días", "6 días", "12 días"], 2, "Con la mitad de trabajadores, el tiempo se duplica: 12 días."],
+                ["Después de un descuento del 20%, un producto cuesta $160. ¿Cuál era su precio original?", ["$180", "$192", "$200"], 2, "$160 representa el 80%. Precio original = 160 ÷ 0.8 = $200."]
+            ]
+        ]
+    }
+};
+
+const nombresNiveles = ["Fácil", "Medio", "Difícil"];
+
+let temaActual = null;
+let nivelActual = 0;
+let preguntaActual = 0;
+let puntos = 0;
+let respondida = false;
+let completados = {};
+
+const $ = id => document.getElementById(id);
+
+function leerTemaURL() {
+    const parametro = new URLSearchParams(window.location.search).get("tema");
+    return temas[parametro] ? parametro : null;
+}
+
+function abrirTema(id) {
+    if (!temas[id]) return;
+
+    temaActual = id;
+    nivelActual = 0;
+    preguntaActual = 0;
+    puntos = 0;
+    completados = {0: false, 1: false, 2: false};
+
+    $("menu-temas").classList.add("oculto");
+    $("zona-leccion").classList.remove("oculto");
+    $("titulo-principal").textContent = temas[id].titulo;
+    $("subtitulo").textContent = "Aprende la teoría y después demuestra lo que sabes.";
+    $("titulo-tema").textContent = temas[id].titulo;
+    $("explicacion").textContent = temas[id].explicacion;
+    $("ejemplo").textContent = temas[id].ejemplo;
+
+    history.replaceState(null, "", "?tema=" + encodeURIComponent(id));
+    actualizarPuntos();
+    cambiarNivel(0);
+    window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+function volverMenu() {
+    temaActual = null;
+    $("zona-leccion").classList.add("oculto");
+    $("menu-temas").classList.remove("oculto");
+    $("titulo-principal").textContent = "Otros temas matemáticos";
+    $("subtitulo").textContent = "Elige un tema, aprende y demuestra lo que sabes.";
+    history.replaceState(null, "", window.location.pathname);
+    window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+function cambiarNivel(nivel) {
+    if (!temaActual) return;
+
+    if (nivel > 0 && !completados[nivel - 1]) {
+        $("mensaje").textContent = "Completa el nivel anterior para desbloquear este.";
+        return;
+    }
+
+    nivelActual = nivel;
+    preguntaActual = 0;
+    respondida = false;
+
+    document.querySelectorAll("[data-nivel]").forEach(btn => {
+        const n = Number(btn.dataset.nivel);
+        btn.classList.toggle("activo", n === nivel);
+        btn.disabled = n > 0 && !completados[n - 1];
+    });
+
+    $("nivel-texto").textContent =
+        "Nivel " + (nivel + 1) + ": " + nombresNiveles[nivel];
+
+    $("reintentar").classList.add("oculto");
+    mostrarPregunta();
+}
+
+function mostrarPregunta() {
+    const lista = temas[temaActual].niveles[nivelActual];
+
+    if (preguntaActual >= lista.length) {
+        terminarNivel();
+        return;
+    }
+
+    respondida = false;
+    const q = lista[preguntaActual];
+
+    $("contador").textContent =
+        "Pregunta " + (preguntaActual + 1) + " de " + lista.length;
+
+    $("pregunta").textContent = q[0];
+    $("respuestas").innerHTML = "";
+    $("mensaje").textContent = "";
+    $("siguiente").classList.add("oculto");
+
+    lista.forEach((_, i) => {});
+
+    q[1].forEach((texto, indice) => {
+        const btn = document.createElement("button");
+        btn.className = "respuesta";
+        btn.textContent = texto;
+        btn.addEventListener("click", () => responder(indice));
+        $("respuestas").appendChild(btn);
+    });
+
+    $("barra-progreso").style.width =
+        (preguntaActual / lista.length * 100) + "%";
+}
+
+function responder(indice) {
+    if (respondida) return;
+    respondida = true;
+
+    const q = temas[temaActual].niveles[nivelActual][preguntaActual];
+    const botones = $("respuestas").querySelectorAll("button");
+
+botones.forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q[2]) btn.classList.add("correcta");
+        if (i === indice && i !== q[2]) btn.classList.add("incorrecta");
+    });
+
+    if (indice === q[2]) {
+        puntos += (nivelActual + 1) * 10;
+        $("mensaje").textContent = "¡Correcto! +" + ((nivelActual + 1) * 10) + " puntos. " + q[3];
+        $("mensaje").style.color = "#55dfaa";
+    } else {
+        $("mensaje").textContent = "No te preocupes. " + q[3];
+        $("mensaje").style.color = "#ff9999";
+    }
+
+    actualizarPuntos();
+    $("barra-progreso").style.width =
+        ((preguntaActual + 1) / temas[temaActual].niveles[nivelActual].length * 100) + "%";
+
+    $("siguiente").classList.remove("oculto");
+    $("siguiente").textContent =
+        preguntaActual === temas[temaActual].niveles[nivelActual].length - 1
+        ? "Terminar nivel →"
+        : "Siguiente pregunta →";
+}
+
+function siguientePregunta() {
+    if (!respondida) return;
+    preguntaActual++;
+    mostrarPregunta();
+}
+
+function terminarNivel() {
+    completados[nivelActual] = true;
+    $("pregunta").textContent = "¡Nivel completado!";
+    $("respuestas").innerHTML = "";
+    $("contador").textContent = "Terminaste las preguntas de este nivel.";
+    $("mensaje").textContent = "¡Buen trabajo! Puedes avanzar al siguiente nivel.";
+    $("mensaje").style.color = "#55dfaa";
+    $("barra-progreso").style.width = "100%";
+    $("siguiente").classList.add("oculto");
+    $("reintentar").classList.remove("oculto");
+
+    document.querySelectorAll("[data-nivel]").forEach(btn => {
+        const n = Number(btn.dataset.nivel);
+        btn.disabled = n > 0 && !completados[n - 1];
+    });
+
+    if (nivelActual < 2) {
+        $("mensaje").textContent += " El nivel " + (nivelActual + 2) + " ya está disponible.";
+    } else {
+        $("mensaje").textContent = "¡Felicidades! Completaste los tres niveles de este tema.";
+    }
+}
+
+function actualizarPuntos() {
+    $("puntos").textContent = "Puntos: " + puntos;
+}
+
+document.querySelectorAll("[data-tema]").forEach(btn => {
+    btn.addEventListener("click", () => abrirTema(btn.dataset.tema));
+});
+
+document.querySelectorAll("[data-nivel]").forEach(btn => {
+    btn.addEventListener("click", () => cambiarNivel(Number(btn.dataset.nivel)));
+});
+
+$("volver-menu").addEventListener("click", volverMenu);
+$("siguiente").addEventListener("click", siguientePregunta);
+
+$("reintentar").addEventListener("click", () => {
+    cambiarNivel(nivelActual);
+});
+
+const temaInicial = leerTemaURL();
+
+if (temaInicial) {
+    abrirTema(temaInicial);
+}
+</script>
+
+</body>
+</html>

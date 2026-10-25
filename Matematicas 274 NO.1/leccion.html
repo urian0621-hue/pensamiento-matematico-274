@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pensamiento Matemático | Lecciones</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #0b1020;
+    color: #f1f5f9;
+    font-family: Arial, sans-serif;
+    line-height: 1.65;
+}
+
+header {
+    background: #15112c;
+    border-bottom: 1px solid #39315c;
+    padding: 20px;
+    text-align: center;
+}
+
+a {
+    color: #c4b5fd;
+    text-decoration: none;
+}
+
+main {
+    width: min(900px, 92%);
+    margin: 30px auto;
+}
+
+.card {
+    background: #151b30;
+    border: 1px solid #303955;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #c4b5fd;
+}
+
+h2 {
+    color: #a5b4fc;
+}
+
+.muted {
+    color: #b6bfd1;
+}
+
+button, input {
+    font: inherit;
+    border-radius: 9px;
+    padding: 12px 16px;
+}
+
+button {
+    background: #7c3aed;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px 4px 5px 0;
+}
+
+button:hover {
+    background: #6d28d9;
+}
+
+button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+input {
+    width: 100%;
+    max-width: 450px;
+    background: #0b1020;
+    border: 1px solid #64748b;
+    color: white;
+    margin: 10px 0;
+}
+
+code {
+    background: #28213f;
+    color: #ddd6fe;
+    padding: 4px 7px;
+    border-radius: 5px;
+}
+
+.instruccion {
+    background: #211c3b;
+    border: 1px solid #514477;
+    padding: 14px;
+    border-radius: 10px;
+    margin: 12px 0;
+}
+
+#zona-retos, #resultado-final {
+    display: none;
+}
+
+#mensaje.correcto {
+    color: #86efac;
+}
+
+#mensaje.incorrecto {
+    color: #fca5a5;
+}
+
+.barra {
+    height: 9px;
+    background: #303955;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 14px 0;
+}
+
+#progreso {
+    width: 0%;
+    height: 100%;
+    background: #a78bfa;
+    transition: width .2s;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html">← Volver a Pensamiento Matemático</a>
+</header>
+
+<main>
+    <section class="card">
+        <p class="muted">APRENDE · PRACTICA · SUPERA TUS LÍMITES</p>
+        <h1 id="titulo">Cargando lección...</h1>
+        <p id="introduccion"></p>
+    </section>
+
+    <section class="card" id="zona-leccion">
+        <h2>📘 Aprende el tema</h2>
+        <p id="explicacion"></p>
+
+        <h2>Ejemplo resuelto</h2>
+        <p id="ejemplo"></p>
+        <p><strong>Respuesta:</strong> <code id="resultado-ejemplo"></code></p>
+
+        <h2>Pasos para resolver</h2>
+        <ol id="pasos"></ol>
+    </section>
+
+    <section class="card" id="zona-instrucciones">
+        <h2>🎯 ¿Cómo funcionan los retos?</h2>
+
+        <div class="instruccion">
+            <strong>📖 1. Aprende primero</strong><br>
+            Lee la explicación y revisa el ejemplo antes de comenzar.
+        </div>
+
+        <div class="instruccion">
+            <strong>✍️ 2. Resuelve las preguntas</strong><br>
+            Escribe tu respuesta y presiona «Comprobar». Recibirás una explicación.
+        </div>
+
+        <div class="instruccion">
+            <strong>🏆 3. Gana puntos y avanza</strong><br>
+            Hay tres niveles de dificultad y nueve preguntas por tema.
+            Cada respuesta correcta vale 10 puntos.
+        </div>
+
+        <div class="instruccion">
+            <strong>💡 Consejo:</strong><br>
+            Intenta resolver cada ejercicio por tu cuenta antes de comprobar tu respuesta.
+        </div>
+
+        <button id="comenzar-retos" type="button">
+            Comenzar retos 🚀
+        </button>
+    </section>
+
+    <section class="card" id="zona-retos">
+        <p class="muted" id="nivel-texto"></p>
+        <h2 id="pregunta"></h2>
+
+        <div class="barra">
+            <div id="progreso"></div>
+        </div>
+
+        <p id="contador"></p>
+        <p>Puntos: <strong id="puntos">0</strong></p>
+
+        <form id="formulario">
+            <label for="respuesta">Escribe tu respuesta:</label><br>
+            <input id="respuesta" type="text"
+                autocomplete="off" placeholder="Tu respuesta..."
+                required>
+            <br>
+            <button id="comprobar" type="submit">Comprobar</button>
+        </form>
+
+        <p id="mensaje" aria-live="polite"></p>
+        <button id="siguiente" type="button" style="display:none">
+            Siguiente pregunta →
+        </button>
+    </section>
+
+    <section class="card" id="resultado-final">
+        <h2>🎉 ¡Terminaste los retos!</h2>
+        <p id="resumen-final"></p>
+        <button id="repetir" type="button">Intentar de nuevo</button>
+        <button id="volver-leccion" type="button">Volver a la lección</button>
+    </section>
+</main>
+
+<footer>
+    Pensamiento Matemático · Aprende a tu ritmo
+</footer>
+
+<script>
+"use strict";
+
+const lecciones = {
+    "primer-grado": {
+        titulo: "Ecuaciones de primer grado",
+        introduccion: "Descubre cómo encontrar el valor de una incógnita.",
+        explicacion: "Una ecuación de primer grado tiene la incógnita elevada a la potencia uno. Para resolverla, realizamos operaciones inversas en ambos lados.",
+        ejemplo: "2x + 3 = 11",
+        resultado: "x = 4",
+        pasos: [
+            "Resta 3 en ambos lados: 2x = 8.",
+            "Divide ambos lados entre 2.",
+            "La respuesta es x = 4."
+        ],
+        niveles: [
+            [
+                ["2x + 3 = 11", ["4"], "Resta 3 y divide entre 2."],
+                ["5x - 7 = 18", ["5"], "Suma 7 y divide entre 5."],
+                ["3(x + 2) = 21", ["5"], "Divide entre 3 y resta 2."]
+            ],
+            [
+                ["x/3 + 4 = 9", ["15"], "Resta 4 y multiplica por 3."],
+                ["4x + 5 = 2x + 17", ["6"], "Resta 2x y después resta 5."],
+                ["2(3x - 1) = 16", ["3"], "Divide entre 2, suma 1 y divide entre 3."]
+            ],
+            [
+                ["7x - 9 = 3x + 15", ["6"], "Resta 3x y suma 9. Queda 4x = 24."],
+                ["(2x + 4)/3 = 8", ["10"], "Multiplica por 3 y resta 4."],
+                ["5(x - 2) + 3 = 2x + 14", ["7"], "Simplifica: 5x - 7 = 2x + 14."]
+            ]
+        ]
+    },
+
+    "segundo-grado": {
+        titulo: "Ecuaciones de segundo grado",
+        introduccion: "Aprende a resolver ecuaciones que contienen x².",
+        explicacion: "Una ecuación cuadrática tiene la forma ax² + bx + c = 0. Podemos resolverla por factorización o mediante la fórmula general.",
+        ejemplo: "x² - 5x + 6 = 0",
+        resultado: "x = 2 o x = 3",
+        pasos: [
+            "Factoriza: (x - 2)(x - 3) = 0.",
+            "Iguala cada factor a cero.",
+            "Las soluciones son 2 y 3."
+        ],
+        niveles: [
+            [
+                ["x² - 5x + 6 = 0. Escribe las dos raíces separadas por coma.", ["2,3", "3,2"], "Las raíces son 2 y 3."],
+                ["x² - 9 = 0. Escribe las dos raíces separadas por coma.", ["-3,3", "3,-3"], "x² = 9, por lo que x = -3 o x = 3."],
+                ["x² - 4x = 0. Escribe las dos raíces separadas por coma.", ["0,4", "4,0"], "Factoriza x(x - 4) = 0."]
+            ],
+            [
+                ["x² + x - 6 = 0. Escribe las dos raíces separadas por coma.", ["-3,2", "2,-3"], "Factoriza (x + 3)(x - 2) = 0."],
+                ["x² - 2x - 8 = 0. Escribe las dos raíces separadas por coma.", ["-2,4", "4,-2"], "Factoriza (x - 4)(x + 2) = 0."],
+                ["x² - 7x + 12 = 0. Escribe las dos raíces separadas por coma.", ["3,4", "4,3"], "Factoriza (x - 3)(x - 4) = 0."]
+            ],
+            [
+                ["2x² - 8 = 0. Escribe las dos raíces separadas por coma.", ["-2,2", "2,-2"], "Divide entre 2: x² = 4."],
+                ["x² + 2x - 15 = 0. Escribe las dos raíces separadas por coma.", ["-5,3", "3,-5"], "Factoriza (x + 5)(x - 3) = 0."],
+                ["x² - 6x + 9 = 0", ["3"], "Es un cuadrado perfecto: (x - 3)² = 0."]
+            ]
+        ]
+    },
+
+    "sistemas": {
+        titulo: "Sistemas de ecuaciones",
+        introduccion: "Encuentra los valores de dos incógnitas al mismo tiempo.",
+        explicacion: "Un sistema contiene dos o más ecuaciones. Puedes resolverlo por sustitución, igualación o eliminación.",
+        ejemplo: "x + y = 10; x - y = 2",
+        resultado: "x = 6, y = 4",
+        pasos: [
+            "Suma las ecuaciones: 2x = 12.",
+            "Divide entre 2: x = 6.",
+            "Sustituye: y = 10 - 6 = 4."
+        ],
+        niveles: [
+            [
+                ["x + y = 10, x - y = 2. Responde x,y.", ["6,4", "x=6,y=4", "6 y 4"], "La solución es x = 6, y = 4."],
+                ["x + y = 8, x = 3. Responde x,y.", ["3,5", "x=3,y=5", "3 y 5"], "Sustituye x = 3: y = 5."],
+                ["x + y = 9, y = 4. Responde x,y.", ["5,4", "x=5,y=4", "5 y 4"], "x = 9 - 4 = 5."]
+            ],
+            [
+                ["2x + y = 11, x = 4. Responde x,y.", ["4,3", "x=4,y=3", "4 y 3"], "22 - 8 = 3 para y; es decir, y = 3."],
+                ["x + y = 12, x - y = 4. Responde x,y.", ["8,4", "x=8,y=4", "8 y 4"], "Sumando ecuaciones: 2x = 16."],
+                ["2x + y = 10, x + y = 7. Responde x,y.", ["3,4", "x=3,y=4", "3 y 4"], "Restando las ecuaciones obtienes x = 3."]
+            ],
+            [
+                ["3x + y = 14, x + y = 6. Responde x,y.", ["4,2", "x=4,y=2", "4 y 2"], "Restando: 2x = 8, entonces x = 4 y y = 2."],
+                ["2x + 3y = 12, x = 3. Responde x,y.", ["3,2", "x=3,y=2", "3 y 2"], "6 + 3y = 12, así que y = 2."],
+                ["x + 2y = 11, x - y = 2. Responde x,y.", ["5,3", "x=5,y=3", "5 y 3"], "De x = y + 2 se obtiene 3y + 2 = 11; y = 3 y x = 5."]
+            ]
+        ]
+    },
+
+    "fracciones": {
+        titulo: "Ecuaciones con fracciones",
+        introduccion: "Resuelve ecuaciones donde aparecen numeradores y denominadores.",
+        explicacion: "Para resolver ecuaciones con fracciones, puedes multiplicar ambos lados por el mínimo común múltiplo de los denominadores.",
+        ejemplo: "x/2 = 6",
+        resultado: "x = 12",
+        pasos: [
+            "Identifica el denominador.",
+            "Multiplica ambos lados por 2.",
+            "Obtienes x = 12."
+        ],
+        niveles: [
+            [
+                ["x/2 = 6", ["12"], "Multiplica ambos lados por 2."],
+                ["x/3 = 5", ["15"], "Multiplica ambos lados por 3."],
+                ["x/4 = 7", ["28"], "Multiplica ambos lados por 4."]
+            ],
+            [
+                ["x/2 + 3 = 8", ["10"], "Resta 3 y multiplica por 2."],
+                ["(x + 1)/3 = 4", ["11"], "Multiplica por 3 y resta 1."],
+                ["x/5 - 2 = 4", ["30"], "Suma 2 y multiplica por 5."]
+            ],
+            [
+                ["x/2 + x/2 = 9", ["9"], "La suma es x = 9."],
+                ["x/3 + 2 = x/2", ["12"], "Multiplica por 6: 2x + 12 = 3x."],
+                ["(2x - 1)/3 = 5", ["8"], "Multiplica por 3 y suma 1: 2x = 16."]
+            ]
+        ]
+    },
+
+    "radicales": {
+        titulo: "Ecuaciones con radicales",
+        introduccion: "Aprende a despejar incógnitas que aparecen dentro de una raíz.",
+        explicacion: "Una ecuación radical contiene raíces. A menudo elevamos ambos lados al cuadrado para eliminar una raíz y comprobamos la solución en la ecuación original.",
+        ejemplo: "√x = 5",
+        resultado: "x = 25",
+        pasos: [
+            "Eleva ambos lados al cuadrado.",
+            "Obtienes x = 25.",
+            "Comprueba: √25 = 5."
+        ],
+        niveles: [
+            [
+                ["√x = 4", ["16"], "Eleva ambos lados al cuadrado."],
+                ["√x = 7", ["49"], "7² = 49."],
+                ["√x = 9", ["81"], "9² = 81."]
+            ],
+            [
+                ["√(x + 1) = 5", ["24"], "Eleva al cuadrado: x + 1 = 25."],
+                ["√(x - 3) = 4", ["19"], "x - 3 = 16, entonces x = 19."],
+                ["√(2x) = 6", ["18"], "2x = 36, entonces x = 18."]
+            ],
+            [
+                ["√(x + 5) = 6", ["31"], "x + 5 = 36."],
+                ["√(3x - 2) = 4", ["6"], "3x - 2 = 16."],
+                ["√(x + 4) = x - 2", ["5"], "Al cuadrar: x + 4 = (x - 2)². Las soluciones candidatas son 5 y -1; solo 5 cumple la ecuación original."]
+            ]
+        ]
+    },
+
+    "exponenciales": {
+        titulo: "Ecuaciones exponenciales",
+        introduccion: "Resuelve ecuaciones donde la incógnita aparece en el exponente.",
+        explicacion: "Una ecuación exponencial contiene la incógnita en el exponente. Si las bases son iguales, puedes igualar los exponentes.",
+        ejemplo: "2ˣ = 8",
+        resultado: "x = 3",
+        pasos: [
+            "Escribe 8 como 2³.",
+            "Iguala exponentes: x = 3.",
+            "Comprueba que 2³ = 8."
+        ],
+        niveles: [
+            [
+                ["2ˣ = 8", ["3"], "8 = 2³."],
+                ["3ˣ = 27", ["3"], "27 = 3³."],
+                ["5ˣ = 25", ["2"], "25 = 5²."]
+            ],
+            [
+                ["2ˣ = 32", ["5"], "32 = 2⁵."],
+                ["4ˣ = 64", ["3"], "64 = 4³."],
+                ["10ˣ = 1000", ["3"], "1000 = 10³."]
+            ],
+            [
+                ["2^(x + 1) = 16", ["3"], "16 = 2⁴; x + 1 = 4."],
+                ["3^(2x) = 81", ["2"], "81 = 3⁴; 2x = 4."],
+                ["5^(x - 1) = 125", ["4"], "125 = 5³; x - 1 = 3."]
+            ]
+        ]
+    },
+
+    "logaritmicas": {
+        titulo: "Ecuaciones logarítmicas",
+        introduccion: "Relaciona los logaritmos con las potencias.",
+        explicacion: "El logaritmo responde a la pregunta: ¿a qué exponente debo elevar la base para obtener un número? Por ejemplo, log₂(8) = 3 porque 2³ = 8.",
+        ejemplo: "log₂(x) = 3",
+        resultado: "x = 8",
+        pasos: [
+            "Convierte el logaritmo a forma exponencial.",
+            "Escribe x = 2³.",
+            "El resultado es x = 8."
+        ],
+        niveles: [
+            [
+                ["log₂(x) = 3", ["8"], "x = 2³ = 8."],
+                ["log₁₀(x) = 2", ["100"], "x = 10² = 100."],
+                ["log₃(x) = 2", ["9"], "x = 3² = 9."]
+            ],
+            [
+                ["log₂(x) = 5", ["32"], "x = 2⁵."],
+                ["log₁₀(x) = 3", ["1000"], "x = 10³."],
+                ["log₅(x) = 2", ["25"], "x = 5²."]
+            ],
+            [
+                ["log₂(x - 1) = 3", ["9"], "x - 1 = 8."],
+                ["log₃(x + 1) = 2", ["8"], "x + 1 = 9."],
+                ["log₁₀(2x) = 2", ["50"], "2x = 100, así que x = 50."]
+            ]
+        ]
+    },
+
+    "simetricas": {
+        titulo: "Ecuaciones simétricas",
+        introduccion: "Explora ecuaciones cuyos coeficientes presentan simetría.",
+        explicacion: "En algunos polinomios simétricos, los coeficientes se repiten en orden inverso. En ciertos casos, una sustitución como t = x + 1/x simplifica el problema. Aquí practicarás primero patrones sencillos.",
+        ejemplo: "x² + 3x + 2 = 0",
+        resultado: "x = -1 o x = -2",
+        pasos: [
+            "Busca dos números cuyo producto sea 2.",
+            "Esos números deben sumar 3.",
+            "Factoriza (x + 1)(x + 2) = 0."
+        ],
+        niveles: [
+            [
+                ["x² + 3x + 2 = 0. Escribe las raíces separadas por coma.", ["-2,-1", "-1,-2"], "Factoriza (x + 1)(x + 2) = 0."],
+                ["x² + 5x + 6 = 0. Escribe las raíces separadas por coma.", ["-3,-2", "-2,-3"], "Factoriza (x + 2)(x + 3) = 0."],
+                ["x² - 1 = 0. Escribe las raíces separadas por coma.", ["-1,1", "1,-1"], "Las raíces son -1 y 1."]
+            ],
+            [
+                ["x² + 2x + 1 = 0", ["-1"], "Es (x + 1)² = 0."],
+                ["x² - 4x + 4 = 0", ["2"], "Es (x - 2)² = 0."],
+                ["x² - 9 = 0. Escribe las raíces separadas por coma.", ["-3,3", "3,-3"], "Las raíces son -3 y 3."]
+            ],
+            [
+                ["x⁴ - 5x² + 4 = 0. Escribe las raíces reales separadas por coma.", ["-2,-1,1,2", "-2, -1, 1, 2"], "Sustituye u = x²: u² - 5u + 4 = 0. Así x² = 1 o 4."],
+                ["x⁴ - 10x² + 9 = 0. Escribe las raíces reales separadas por coma.", ["-3,-1,1,3", "-3, -1, 1, 3"], "Sustituye u = x²: u² - 10u + 9 = 0. Así x² = 1 o 9."],
+                ["x⁴ - 13x² + 36 = 0. Escribe las raíces reales separadas por coma.", ["-3,-2,2,3", "-3, -2, 2, 3"], "Sustituye u = x²: u² - 13u + 36 = 0. Así x² = 4 o 9."]
+            ]
+        ]
+    }
+};
+
+/* Seleccionar el tema recibido desde la página principal. */
+const parametros = new URLSearchParams(window.location.search);
+const temaSolicitado = parametros.get("tema");
+const tema = lecciones[temaSolicitado] ? temaSolicitado : "primer-grado";
+const leccion = lecciones[tema];
+
+document.title = leccion.titulo + " | Pensamiento Matemático";
+document.getElementById("titulo").textContent = leccion.titulo;
+document.getElementById("introduccion").textContent = leccion.introduccion;
+document.getElementById("explicacion").textContent = leccion.explicacion;
+document.getElementById("ejemplo").textContent = leccion.ejemplo;
+document.getElementById("resultado-ejemplo").textContent = leccion.resultado;
+
+const listaPasos = document.getElementById("pasos");
+
+leccion.pasos.forEach(function(paso) {
+    const li = document.createElement("li");
+    li.textContent = paso;
+    listaPasos.appendChild(li);
+});
+
+const zonaInstrucciones = document.getElementById("zona-instrucciones");
+const zonaRetos = document.getElementById("zona-retos");
+const zonaLeccion = document.getElementById("zona-leccion");
+const zonaFinal = document.getElementById("resultado-final");
+
+const botonComenzar = document.getElementById("comenzar-retos");
+const formulario = document.getElementById("formulario");
+const campoRespuesta = document.getElementById("respuesta");
+const botonComprobar = document.getElementById("comprobar");
+const botonSiguiente = document.getElementById("siguiente");
+const mensaje = document.getElementById("mensaje");
+
+let preguntas = [];
+let indice = 0;
+let puntos = 0;
+let respondida = false;
+let correctas = 0;
+
+function iniciarRetos() {
+    preguntas = [];
+
+    leccion.niveles.forEach(function(nivel, numeroNivel) {
+        nivel.forEach(function(pregunta) {
+            preguntas.push({
+                nivel: numeroNivel + 1,
+                texto: pregunta[0],
+                respuestas: pregunta[1].map(normalizar),
+                explicacion: pregunta[2]
+            });
+        });
+    });
+
+    indice = 0;
+    puntos = 0;
+    correctas = 0;
+    respondida = false;
+
+    document.getElementById("puntos").textContent = puntos;
+    zonaInstrucciones.style.display = "none";
+    zonaFinal.style.display = "none";
+    zonaRetos.style.display = "block";
+
+    mostrarPregunta();
+    zonaRetos.scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+function normalizar(valor) {
+    return String(valor)
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/−/g, "-")
+        .replace(/,/g, ",");
+}
+
+function mostrarPregunta() {
+    const pregunta = preguntas[indice];
+
+    respondida = false;
+    campoRespuesta.value = "";
+    campoRespuesta.disabled = false;
+    botonComprobar.disabled = false;
+    botonComprobar.style.display = "inline-block";
+    botonSiguiente.style.display = "none";
+
+    document.getElementById("nivel-texto").textContent =
+        "Nivel " + pregunta.nivel + " de 3";
+
+    document.getElementById("pregunta").textContent =
+        pregunta.texto;
+
+    document.getElementById("contador").textContent =
+        "Pregunta " + (indice + 1) + " de " + preguntas.length;
+
+    document.getElementById("progreso").style.width =
+        (indice / preguntas.length * 100) + "%";
+
+    mensaje.textContent = "";
+    mensaje.className = "";
+    campoRespuesta.focus();
+}
+
+formulario.addEventListener("submit", function(evento) {
+    evento.preventDefault();
+
+    if (respondida) return;
+
+    const respuestaUsuario = normalizar(campoRespuesta.value);
+
+    if (!respuestaUsuario) {
+        mensaje.textContent = "Escribe una respuesta primero.";
+        mensaje.className = "incorrecto";
+        return;
+    }
+
+    const pregunta = preguntas[indice];
+    const acierto = pregunta.respuestas.includes(respuestaUsuario);
+
+    respondida = true;
+    campoRespuesta.disabled = true;
+    botonComprobar.disabled = true;
+
+    if (acierto) {
+        puntos += 10;
+        correctas++;
+        mensaje.textContent = "¡Correcto! +10 puntos. " + pregunta.explicacion;
+        mensaje.className = "correcto";
+    } else {
+        mensaje.textContent = "No es correcto. " + pregunta.explicacion;
+        mensaje.className = "incorrecto";
+    }
+
+    document.getElementById("puntos").textContent = puntos;
+    document.getElementById("progreso").style.width =
+        ((indice + 1) / preguntas.length * 100) + "%";
+
+    botonSiguiente.textContent =
+        indice === preguntas.length - 1
+        ? "Ver resultados 🏆"
+        : "Siguiente pregunta →";
+
+    botonSiguiente.style.display = "inline-block";
+});
+
+botonSiguiente.addEventListener("click", function() {
+    if (!respondida) return;
+
+    indice++;
+
+    if (indice >= preguntas.length) {
+        mostrarResultados();
+    } else {
+        mostrarPregunta();
+    }
+});
+
+function mostrarResultados() {
+    zonaRetos.style.display = "none";
+    zonaFinal.style.display = "block";
+
+    document.getElementById("resumen-final").textContent =
+        "Obtuviste " + puntos + " puntos de " +
+        (preguntas.length * 10) + ". Respondiste correctamente " +
+        correctas + " de " + preguntas.length +
+        " preguntas. ¡Sigue practicando para mejorar!";
+
+    zonaFinal.scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+document.getElementById("repetir").addEventListener("click", iniciarRetos);
+
+document.getElementById("volver-leccion").addEventListener("click", function() {
+    zonaFinal.style.display = "none";
+    zonaRetos.style.display = "none";
+    zonaInstrucciones.style.display = "block";
+    zonaLeccion.scrollIntoView({behavior: "smooth", block: "start"});
+});
+
+botonComenzar.addEventListener("click", iniciarRetos);
+</script>
+
+</body>
+</html>

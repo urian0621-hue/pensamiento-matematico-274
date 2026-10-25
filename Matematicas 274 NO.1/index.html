@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pensamiento Matemático</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="#inicio" class="logo">
+            Pensamiento <span>Matemático</span>
+        </a>
+
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#herramientas">Herramientas</a>
+            <a href="#calculadora">Calculadora</a>
+            <a href="#otros">Otros</a>
+            <a href="#nosotros">Acerca de</a>
+        </nav>
+
+        <a href="#herramientas" class="nav-button">Comenzar</a>
+    </header>
+
+    <main>
+
+        <!-- INICIO -->
+        <section class="hero" id="inicio">
+            <div class="tag">✦ TU ESPACIO MATEMÁTICO</div>
+
+            <h1>
+                Las matemáticas,<br>
+                <span>más fáciles.</span>
+            </h1>
+
+            <p>
+                Resuelve problemas, aprende nuevos conceptos
+                y descubre que las matemáticas no son tan difíciles.
+            </p>
+
+            <a href="#herramientas" class="main-button">
+                Explorar herramientas →
+            </a>
+
+            <div class="math-decoration">∫ &nbsp; π &nbsp; √x &nbsp; ∑</div>
+        </section>
+
+
+        <!-- TARJETAS PRINCIPALES -->
+        <section class="tools" id="herramientas">
+            <div class="section-heading">
+                <span>APRENDE A TU RITMO</span>
+                <h2>¿Qué vamos a resolver hoy?</h2>
+                <p>Elige una herramienta para comenzar.</p>
+            </div>
+
+            <div class="cards">
+
+                <article class="tool-card">
+                    <div class="tool-icon">ƒ(x)</div>
+                    <h3>Ecuaciones</h3>
+                    <p>
+                        Resuelve ecuaciones y aprende
+                        el procedimiento paso a paso.
+                    </p>
+                    <a href="#ecuaciones">Explorar →</a>
+                </article>
+
+                <article class="tool-card">
+                    <div class="tool-icon">∫</div>
+                    <h3>Integrales</h3>
+                    <p>
+                        Aprende a resolver integrales
+                        paso a paso.
+                    </p>
+                    <a href="#integrales">Explorar →</a>
+                </article>
+
+                <article class="tool-card">
+                    <div class="tool-icon">π</div>
+                    <h3>Otros</h3>
+                    <p>
+                        Geometría, potencias, fracciones,
+                        áreas, perímetros y más.
+                    </p>
+                    <a href="#otros">Explorar →</a>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- CALCULADORA CIENTÍFICA -->
+        <section class="scientific-calculator" id="calculadora">
+            <div class="calculator-heading">
+                <span>HERRAMIENTA CIENTÍFICA</span>
+                <h2>Calculadora científica</h2>
+                <p>Realiza operaciones matemáticas con facilidad.</p>
+            </div>
+
+            <div class="calculator">
+                <div class="calculator-screen">
+                    <div id="calc-expression"></div>
+                    <div id="calc-result">0</div>
+                </div>
+
+                <div class="calculator-buttons">
+                    <button data-action="clear" class="special">AC</button>
+                    <button data-action="delete" class="special">DEL</button>
+                    <button data-value="(">(</button>
+                    <button data-value=")">)</button>
+                    <button data-value="/" class="operator">÷</button>
+
+                    <button data-value="sin(">sin</button>
+                    <button data-value="cos(">cos</button>
+                    <button data-value="tan(">tan</button>
+                    <button data-value="sqrt(">√</button>
+                    <button data-value="*" class="operator">×</button>
+
+                    <button data-value="7">7</button>
+                    <button data-value="8">8</button>
+                    <button data-value="9">9</button>
+                    <button data-value="^2">x²</button>
+                    <button data-value="-" class="operator">−</button>
+
+                    <button data-value="4">4</button>
+                    <button data-value="5">5</button>
+                    <button data-value="6">6</button>
+                    <button data-value="^">xʸ</button>
+                    <button data-value="+" class="operator">+</button>
+
+                    <button data-value="1">1</button>
+                    <button data-value="2">2</button>
+                    <button data-value="3">3</button>
+                    <button data-value="sqrt3(">∛</button>
+                    <button data-value="%">%</button>
+
+                    <button data-value="pi">π</button>
+                    <button data-value="0">0</button>
+                    <button data-value=".">.</button>
+                    <button data-value="log(">log</button>
+                    <button data-action="calculate" class="equals">=</button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ECUACIONES -->
+        <section class="tools" id="ecuaciones">
+            <div class="section-heading">
+                <span>APRENDE PASO A PASO</span>
+                <h2>¿Qué tipo de ecuación quieres aprender?</h2>
+                <p>Selecciona un tema para comenzar.</p>
+            </div>
+
+            <div class="equation-menu">
+
+                <button class="equation-option" data-equation="primer-grado">
+                    <span class="equation-icon">x</span>
+                    <span>
+                        <strong>Ecuaciones de primer grado</strong>
+                        <small>Ejemplo: 2x + 6 = 20</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-equation="segundo-grado">
+                    <span class="equation-icon">x²</span>
+                    <span>
+                        <strong>Ecuaciones de segundo grado</strong>
+                        <small>Ejemplo: x² - 5x + 6 = 0</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-equation="sistemas">
+                    <span class="equation-icon">{x,y}</span>
+                    <span>
+                        <strong>Sistemas de ecuaciones</strong>
+                        <small>Ejemplo: x + y = 10</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-equation="fracciones">
+                    <span class="equation-icon">½</span>
+                    <span>
+                        <strong>Ecuaciones con fracciones</strong>
+                        <small>Ejemplo: x/2 + 3 = 7</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-equation="radicales">
+                    <span class="equation-icon">√x</span>
+                    <span>
+                        <strong>Ecuaciones con radicales</strong>
+                        <small>Ejemplo: √(x + 1) = 3</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-equation="exponenciales">
+                    <span class="equation-icon">xⁿ</span>
+                    <span>
+                        <strong>Ecuaciones exponenciales</strong>
+                        <small>Ejemplo: 2ˣ = 16</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-equation="logaritmicas">
+                    <span class="equation-icon">log</span>
+                    <span>
+                        <strong>Ecuaciones logarítmicas</strong>
+                        <small>Ejemplo: log(x) = 2</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-equation="simetricas">
+                    <span class="equation-icon">↔</span>
+                    <span>
+                        <strong>Ecuaciones simétricas</strong>
+                        <small>Aprende sus métodos de resolución</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+            </div>
+
+            <div id="equation-learning" hidden>
+                <button id="back-to-equations" type="button">
+                    ← Volver a las ecuaciones
+                </button>
+
+                <h3 id="equation-title"></h3>
+                <p id="equation-description"></p>
+                <div id="equation-lesson"></div>
+            </div>
+
+            <div class="section-heading">
+                <span>APRENDE PASO A PASO</span>
+                <h2>Solucionador de ecuaciones</h2>
+                <p>
+                    Aquí agregaremos la resolución de ecuaciones
+                    con explicación de cada paso.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- INTEGRALES -->
+        <section class="tools" id="integrales">
+            <div class="section-heading">
+                <span>MATEMÁTICAS AVANZADAS</span>
+                <h2>Integrales</h2>
+                <p>
+                    Próximamente construiremos aquí
+                    el solucionador de integrales.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- OTROS -->
+        <section class="tools" id="otros">
+            <div class="section-heading">
+                <span>EXPLORA Y PRACTICA</span>
+                <h2>¿Qué quieres aprender?</h2>
+                <p>Selecciona un tema para comenzar.</p>
+            </div>
+
+            <div class="equation-menu">
+
+                <button class="equation-option" data-otro="geometria">
+                    <span class="equation-icon">△</span>
+                    <span>
+                        <strong>Geometría</strong>
+                        <small>Triángulos, círculos, ángulos y polígonos.</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-otro="areas">
+                    <span class="equation-icon">▱</span>
+                    <span>
+                        <strong>Áreas y perímetros</strong>
+                        <small>Calcula superficies y contornos.</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-otro="potencias">
+                    <span class="equation-icon">x²</span>
+                    <span>
+                        <strong>Potencias y exponentes</strong>
+                        <small>Aprende las reglas de las potencias.</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-otro="fracciones">
+                    <span class="equation-icon">½</span>
+                    <span>
+                        <strong>Fracciones</strong>
+                        <small>Suma, resta, multiplica y divide.</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-otro="pitagoras">
+                    <span class="equation-icon">√</span>
+                    <span>
+                        <strong>Teorema de Pitágoras</strong>
+                        <small>Calcula los lados de un triángulo rectángulo.</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+                <button class="equation-option" data-otro="porcentajes">
+                    <span class="equation-icon">%</span>
+                    <span>
+                        <strong>Porcentajes y regla de tres</strong>
+                        <small>Resuelve proporciones y porcentajes.</small>
+                    </span>
+                    <span class="equation-arrow">→</span>
+                </button>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- PIE DE PÁGINA -->
+    <footer id="nosotros">
+        <a href="#inicio" class="logo">
+            Pensamiento <span>Matemático</span>
+        </a>
+        <p>Las matemáticas están al alcance de todos.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
